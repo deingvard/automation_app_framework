@@ -16,6 +16,11 @@ def load_config(file):
     return target
 
 
+@pytest.fixture(scope="session")
+def config(request):
+    return load_config(request.config.getoption("--target"))
+
+
 @pytest.fixture
 def app(request):
     global fixture
@@ -30,6 +35,7 @@ def app(request):
 def stop(request):
     def fin():
         fixture.destroy()
+
     request.addfinalizer(fin)
     return fixture
 
