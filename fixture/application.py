@@ -1,5 +1,6 @@
 from selenium import webdriver
-from fixture.session import SessionHelper
+from page_objects.login_page import LoginPage
+from page_objects.secure_area_page import SecureAreaPage
 import os
 
 
@@ -22,7 +23,8 @@ class Application:
         # Delete all cookies in the scope of the session
         self.wd.delete_all_cookies()
         # Initialize pages
-        self.session = SessionHelper(self)
+        self.login_page = LoginPage(self)
+        self.secure_area_page = SecureAreaPage(self)
         self.base_url = base_url
 
     def is_valid(self):
