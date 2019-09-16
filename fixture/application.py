@@ -5,7 +5,6 @@ from fixture.session import SessionHelper
 class Application:
 
     def __init__(self, browser, base_url):
-
         # Set browser
         if browser == "firefox":
             self.wd = webdriver.Firefox()
@@ -15,14 +14,12 @@ class Application:
             self.wd = webdriver.Ie()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
-
         # Sets a sticky timeout to implicitly wait for an element to be found
         self.wd.implicitly_wait(2)
         # Invokes the window manager-specific 'full screen' operation
         self.wd.set_window_size(1980, 1020)
         # Delete all cookies in the scope of the session
         self.wd.delete_all_cookies()
-
         # Initialize pages
         self.session = SessionHelper(self)
         self.base_url = base_url
