@@ -1,6 +1,15 @@
+from selenium.webdriver.common.by import By
 
 
-class SessionHelper:
+class PageLocators(object):
+    USER_NAME_INPUT = (By.NAME, "username")
+    USER_PASSWORD_INPUT = (By.NAME, "password")
+    SUBMIT_BUTTON = (By.CSS_SELECTOR, 'button[type="submit"]')
+    LOGOUT_BUTTON = (By.LINK_TEXT, 'Logout')
+    LOGGED_AREA = (By.CSS_SELECTOR, '#flash')
+
+
+class SessionHelper(PageLocators):
 
     def __init__(self, app):
         self.app = app
@@ -8,14 +17,27 @@ class SessionHelper:
     def login(self, username, password):
         wd = self.app.wd
         self.app.open_home_page()
-        wd.find_element_by_name("username").click()
-        wd.find_element_by_name('username').clear()
-        wd.find_element_by_name('username').send_keys(username)
+        wd.find_element(*PageLocators.USER_NAME_INPUT).click()
+        wd.find_element(*PageLocators.USER_NAME_INPUT).clear()
+        wd.find_element(*PageLocators.USER_NAME_INPUT).send_keys(username)
+        wd.find_element(*PageLocators.USER_PASSWORD_INPUT).click()
+        wd.find_element(*PageLocators.USER_PASSWORD_INPUT).clear()
+        wd.find_element(*PageLocators.USER_PASSWORD_INPUT).send_keys(password)
+        wd.find_element(*PageLocators.SUBMIT_BUTTON).click()
 
-        wd.find_element_by_name("password").click()
-        wd.find_element_by_name('password').clear()
-        wd.find_element_by_name('password').send_keys(password)
+    def logout(self):
+        wd = self.app.wd
+        wd.find_element(*PageLocators.LOGOUT_BUTTON).click()
 
-        wd.find_element_by_css_selector('button[type="submit"]')
+    def is_logged_in(self):
+        wd = self.app.wd
+        return len(wd.find_elements(*PageLocators.LOGOUT_BUTTON)) > 0
 
+    def is_logged_in_as(self, area):
+        wd = self.app.wd
+        return self.get_logged_are() == area
+
+    def get_logged_are(self):
+        wd = self.app.wd
+        return wd.find_element(*PageLocators.LOGGED_AREA).text
 
