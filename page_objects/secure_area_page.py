@@ -11,13 +11,13 @@ class SecureAreaPage(PageLocators):
     def __init__(self, app):
         self.app = app
 
-    def logout(self):
-        wd = self.app.wd
-        wd.find_element(*PageLocators.LOGOUT_BUTTON).click()
-
-    def is_logged_in_as(self, area):
-        return self.get_logged_are() == area
-
-    def get_logged_are(self):
+    def get_secure_area_title(self):
         wd = self.app.wd
         return wd.find_element(*PageLocators.TITLE_AREA).text
+
+    def check_secure_area_text(self, area):
+        return self.get_secure_area_title() == area
+
+    def click_logout_button(self):
+        wd = self.app.wd
+        wd.find_element(*PageLocators.LOGOUT_BUTTON).click()

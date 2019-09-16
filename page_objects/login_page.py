@@ -12,7 +12,7 @@ class LoginPage(PageLocators):
     def __init__(self, app):
         self.app = app
 
-    def login(self, username, password):
+    def enter_login_information(self, username, password):
         wd = self.app.wd
         self.app.open_home_page()
         wd.find_element(*PageLocators.USER_NAME_INPUT).click()
