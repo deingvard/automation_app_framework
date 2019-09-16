@@ -1,5 +1,6 @@
 from selenium import webdriver
 from fixture.session import SessionHelper
+import os
 
 
 class Application:
@@ -9,7 +10,7 @@ class Application:
         if browser == "firefox":
             self.wd = webdriver.Firefox()
         elif browser == "chrome":
-            self.wd = webdriver.Chrome(executable_path='/Users/admin/Downloads/chromedriver')
+            self.wd = webdriver.Chrome(os.getcwd() + os.sep + os.sep + "chromedriver")
         elif browser == "ie":
             self.wd = webdriver.Ie()
         else:
