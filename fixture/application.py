@@ -15,7 +15,7 @@ class Application:
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         # Sets a sticky timeout to implicitly wait for an element to be found
-        self.wd.implicitly_wait(2)
+        self.wd.implicitly_wait(5)
         # Invokes the window manager-specific 'full screen' operation
         self.wd.set_window_size(1980, 1020)
         # Delete all cookies in the scope of the session
