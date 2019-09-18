@@ -13,7 +13,7 @@ class Application:
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
-            self.wd = webdriver.Chrome(chrome_options=chrome_options,
+            self.wd = webdriver.Chrome(options=chrome_options,
                                        executable_path=os.getcwd() + os.sep + os.sep + "libs/chromedriver")
         elif browser == "ie":
             self.wd = webdriver.Ie()
