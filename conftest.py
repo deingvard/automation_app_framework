@@ -35,7 +35,6 @@ def app(request):
 def stop(request):
     def fin():
         fixture.destroy()
-
     request.addfinalizer(fin)
     return fixture
 
@@ -43,3 +42,10 @@ def stop(request):
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
     parser.addoption("--target", action="store", default="target.json")
+
+
+@pytest.fixture
+def chrome_options(chrome_options, pytestconfig):
+    if pytestconfig.getoption('headless'):
+        chrome_options.add_argument('--headless')
+    return chrome_options
