@@ -2,45 +2,48 @@ from selenium import webdriver
 from page_objects.login_page import LoginPage
 from page_objects.secure_area_page import SecureAreaPage
 import os
+from selenium.common.exceptions import WebDriverException
 
 
 class Application:
-
     def __init__(self, browser, base_url):
         # Set browser
         if browser == "firefox":
-            self.wd = webdriver.Firefox()
+            self.driver = webdriver.Firefox()
         elif browser == "chrome":
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
-            self.wd = webdriver.Chrome(options=chrome_options,
-                                       executable_path=os.getcwd() + os.sep + os.sep + "libs/chromedriver")
+            self.driver = webdriver.Chrome(options=chrome_options,
+                                           executable_path=os.getcwd() + os.sep + os.sep + "chromedriver")
         elif browser == "ie":
-            self.wd = webdriver.Ie()
+            self.driver = webdriver.Ie()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
         # Sets a sticky timeout to implicitly wait for an element to be found
-        self.wd.implicitly_wait(5)
+        self.driver.implicitly_wait(30)
         # Invokes the window manager-specific 'full screen' operation
-        self.wd.set_window_size(1980, 1020)
+        self.driver.set_window_size(1980, 1020)
         # Delete all cookies in the scope of the session
-        self.wd.delete_all_cookies()
+        self.driver.delete_all_cookies()
         # Initialize pages
         self.login_page = LoginPage(self)
         self.secure_area_page = SecureAreaPage(self)
         self.base_url = base_url
 
-    def is_valid(self):
-        try:
-            self.wd.current_url
-            return True
-        except:
-            return False
-
     def open_home_page(self):
-        wd = self.wd
-        wd.get(self.base_url)
+        driver = self.driver
+        driver.get(self.base_url)
 
     def destroy(self):
         # Stop the browser
-        self.wd.quit()
+        self.driver.quit()
+
+    def is_valid(self):
+        try:
+            self.current_url()
+            return True
+        except WebDriverException:
+            return False
+
+    def current_url(self):
+        return self.driver.current_url

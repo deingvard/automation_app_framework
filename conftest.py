@@ -31,7 +31,7 @@ def app(request):
     return fixture
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def stop(request):
     def fin():
         fixture.destroy()
@@ -44,8 +44,4 @@ def pytest_addoption(parser):
     parser.addoption("--target", action="store", default="target.json")
 
 
-@pytest.fixture
-def chrome_options(chrome_options, pytestconfig):
-    if pytestconfig.getoption('headless'):
-        chrome_options.add_argument('--headless')
-    return chrome_options
+
