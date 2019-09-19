@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from webium import BasePage, Finds, Find
 import pytest
 
 
@@ -9,7 +8,7 @@ class PageLocators(object):
     SUBMIT_BUTTON = (By.CSS_SELECTOR, 'button[type="submit"]')
 
 
-class LoginPage(PageLocators, BasePage):
+class LoginPage(PageLocators):
 
     def __init__(self, app):
         self.app = app

@@ -11,3 +11,6 @@
 
 - Test results will be collected into the following folders:
 target/allure-results/xxxxx-xxxxx-test.xml file will contain information about test steps (Allure)
+
+**Clean cache on unix system**
+- sudo find . -name \*.pyc -delete

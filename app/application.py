@@ -1,6 +1,6 @@
 from selenium import webdriver
-from page_objects.login_page import LoginPage
-from page_objects.secure_area_page import SecureAreaPage
+from pages.login_page import LoginPage
+from pages.secure_area_page import SecureAreaPage
 import os
 from selenium.common.exceptions import WebDriverException
 
@@ -14,7 +14,7 @@ class Application:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument('--headless')
             self.driver = webdriver.Chrome(options=chrome_options,
-                                           executable_path=os.getcwd() + os.sep + os.sep + "chromedriver")
+                                           executable_path=os.getcwd() + os.sep + os.sep + "data/chromedriver")
         elif browser == "ie":
             self.driver = webdriver.Ie()
         else:
