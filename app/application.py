@@ -1,6 +1,7 @@
 from selenium import webdriver
-from pages.login_page import LoginPage
-from pages.secure_area_page import SecureAreaPage
+from actions.login import LoginActions
+from actions.secure_area import SecureAreaActions
+
 import os
 from selenium.common.exceptions import WebDriverException
 import pytest
@@ -28,8 +29,8 @@ class Application:
             self.driver.delete_all_cookies()
             # Initialize pages
             with pytest.allure.step("Started browser"):
-                self.login_page = LoginPage(self)
-                self.secure_area_page = SecureAreaPage(self)
+                self.login_page = LoginActions(self)
+                self.secure_area_page = SecureAreaActions(self)
                 self.base_url = base_url
 
     def open_home_page(self):
@@ -44,7 +45,8 @@ class Application:
     def is_valid(self):
         try:
             self.current_url()
-            return True
+            with pytest.allure.step("Browser is valid"):
+                return True
         except WebDriverException:
             return False
 
