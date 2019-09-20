@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
-import pytest
+from webium import BasePage, Finds, Find
 
 
-class SecureAreaPageLocators(object):
-    TITLE_AREA = (By.CLASS_NAME, 'subheader')
+class SecureAreaPageLocators(BasePage):
+    title_area = Find(by=By.CLASS_NAME, value="subheader")
 
 

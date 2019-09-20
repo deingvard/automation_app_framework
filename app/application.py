@@ -14,7 +14,7 @@ class Application:
                 self.driver = webdriver.Firefox()
             elif browser == "chrome":
                 chrome_options = webdriver.ChromeOptions()
-                chrome_options.add_argument('--headless')
+                # chrome_options.add_argument('--headless')
                 self.driver = webdriver.Chrome(options=chrome_options,
                                                executable_path=os.getcwd() + os.sep + os.sep + "data/chromedriver")
             elif browser == "ie":
