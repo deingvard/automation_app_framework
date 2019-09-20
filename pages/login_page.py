@@ -14,13 +14,16 @@ class LoginPage(PageLocators):
         self.app = app
 
     def enter_login_information(self, username, password):
-        with pytest.allure.step('Open Login Page and fill in fields "Username" and "Password", click "Login'):
+        with pytest.allure.step('Fill in fields "Username" and "Password", click "Login'):
             driver = self.app.driver
-            self.app.open_home_page()
             driver.find_element(*PageLocators.USER_NAME_INPUT).click()
             driver.find_element(*PageLocators.USER_NAME_INPUT).clear()
             driver.find_element(*PageLocators.USER_NAME_INPUT).send_keys(username)
             driver.find_element(*PageLocators.USER_PASSWORD_INPUT).click()
             driver.find_element(*PageLocators.USER_PASSWORD_INPUT).clear()
             driver.find_element(*PageLocators.USER_PASSWORD_INPUT).send_keys(password)
+
+    def click_submit_button(self):
+        with pytest.allure.step('Click submit button'):
+            driver = self.app.driver
             driver.find_element(*PageLocators.SUBMIT_BUTTON).click()
